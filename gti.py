@@ -37,9 +37,9 @@ async def on_member_join(member):
     server = member.server.get_channel('368049600885686278')
     verify = member.server.get_channel('368081743795978243')
     rules = member.server.get_channel('368081632776683531')
-
+   
     fmt = 'Welcome {0.mention}! If you would like a role, head over to {1.mention} and post a picture of your ride! ' \
-          'Be sure to check out [2.mention] as well, and ,importantly, make sure to have fun!'
+          'Be sure to check out {2.mention} as well, and ,importantly, make sure to have fun!'
     await client.send_message(server, fmt.format(member,verify,rules))
 
 
