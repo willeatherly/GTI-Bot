@@ -27,8 +27,41 @@ async def on_message(message):
         tmp = '{0.mention},{1.mention}'
         await client.send_message(server, tmp.format(verify,rules))
         print(message.content + " was replied to with " + tmp)
+        
+    if message.content.startswith("yeet") or message.content.startswith("Yeet") or message.content.startswith("YEET"):
+
+        await client.send_message(server,"<:yeet:527886013381476352>")
 
 
+@client.event
+async def on_reaction_add(reaction,user):
+    #this handles top posts
+    server = reaction.message.channel.server.get_channel('549409632985153556')
+    count = 0
+    banned = False
+    #goes through all message reactions
+    for react in reaction.message.reactions:
+        #checks for emoji
+        if str(react.emoji) == '<:BW:478397214323113995>':
+            count = count +1
+            #threshold, edit this if you want to increase or decrease
+            if count == 1:
+                #checks for repeats of the same message. keeps it original. I am still working on this bit
+                async for log in client.logs_from(server, limit=300):
+
+                    #breaks when it finds a similar message
+                    if str(log.content) == str(reaction.message.content):
+                        print("denied")
+                        banned = True
+                        break
+
+                if banned:
+                   break
+                else:
+                #posts if requirements are met
+                    print("posting another message")
+                    await client.send_message(server, '{0.mention} sent:'.format(reaction.message.author))
+                    await client.send_message(server, reaction.message.content)
 
 
 @client.event
