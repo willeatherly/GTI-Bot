@@ -63,6 +63,29 @@ async def on_reaction_add(reaction,user):
                     await client.send_message(server, '{0.mention} sent:'.format(reaction.message.author))
                     await client.send_message(server, reaction.message.content)
 
+@client.event
+async def on_member_update(before,after):
+   #booleans to test the serarch
+    bef = True
+    af = False
+    #checking the precondition
+    for rollie in before.roles:
+        if rollie.id == '543460962745843712':
+            bef = False
+    #checking the post condition
+    for role in after.roles:
+
+        if role.id == '543460962745843712':
+
+            af = True
+    #If the role is changed, launch the message 
+    if bef == True and af == True:
+        tmp = '{0.mention}, welcome to Time Out. You have been placed here by a member of the server staff due to misconduct on the server. ' \
+              'You are currently muted in every channel except for this one. If you have any questions about your predicament, feel free to contact' \
+              ' a member of the server staff.'.format(after)
+
+        await client.send_message(after.server.get_channel('550166898441060352'), tmp)
+
 
 @client.event
 async def on_member_join(member):
