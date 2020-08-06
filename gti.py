@@ -37,7 +37,7 @@ async def on_message(message):
     #This is used to interact with the CV API
     if message.content.startswith("!v"):
 
-        url = 'https://api.openalpr.com/v2/recognize_bytes?recognize_vehicle=1&country=us&secret_key=sk_239c80b9b20e192657782a21'
+        url = 'https://api.openalpr.com/v2/recognize_bytes?recognize_vehicle=1&country=us&secret_key='
 
         try:
             print(message.attachments)
